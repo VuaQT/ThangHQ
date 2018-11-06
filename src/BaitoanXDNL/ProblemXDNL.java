@@ -6,27 +6,29 @@ import org.moeaframework.problem.AbstractProblem;
 
 public class ProblemXDNL extends AbstractProblem {
 
-	int nNguonLuc = 9;
-	int nNguoiChoi = 3;
+	int nNguonLuc = Constants.nNguonLuc;
+	int nNguoiChoi = Constants.nNguoiChoi;
 	NguonLuc[] dsNguonLuc = new NguonLuc[nNguonLuc];
 	NguoiChoi[] dsNguoiChoi = new NguoiChoi[nNguoiChoi];
 	boolean[][] accept = new boolean[nNguoiChoi][nNguonLuc];
 
 	public ProblemXDNL() {
-		super(9, 3+1+1, 9); // 3 = nNguoiChoi, 9 = nNguonLuc , 1 + 1 = objective for payoff variance + objective for number of employee variance  
-		float tt[][] = { { 1, 17 }, { 1, 15 }, { 2, 15 }, { 2, 9.5f }, { 3, 9.5f }, { 4, 9.5f }, { 5, 9 }, { 6, 9 },
-				{ 7, 9 } };
+		super(Constants.nNguonLuc, Constants.nNguoiChoi+1+1+1, Constants.nNguonLuc);  
+		float tt[][] = { { 4, 17 }, { 6, 19 }, { 2, 7 }, { 2, 7.5f }, { 3, 8.5f }, { 4, 9.5f }, { 5, 10 }, { 6, 11 },
+				{ 7, 22 } };
 		String kn[][] = { { "PHP", "JavaScript", "Python" }, { "MySQL", "C++", "C#" }, { "Python", "Java", "C++" },
-				{ "Java", "C#" }, { "PHP", "JavaScript" }, { "MySQL", "C#" }, { "MySQL", "C++" }, { "Java", "C++" },
+				{ "Java", "C#" }, { "PHP", "JavaScript" }, { "MySQL", "C#","Ruby" }, { "MySQL", "C++" }, { "Java", "C++","Ruby" },
 				{ "JavaScript", "Python" } };
 
 		for (int i = 0; i < nNguonLuc; i++) {
 			dsNguonLuc[i] = new NguonLuc(i, tt[i], kn[i]);
 		}
 		String kn_nc[][] = { { "PHP", "MySQL", "JavaScript" }, { "JavaScript", "Python", "Java" },
-				{ "Java", "C++", "C#" } };
+				{ "Java", "C++", "C#" },{ "Java", "PHP","Ruby" },{ "MySQL", "C++","Ruby"} };
+		int[][] thoi_gian_du_an= { {1,7},{3,4},{5,6},{5,8},{8,11} };
+		
 		for (int i = 0; i < nNguoiChoi; i++) {
-			dsNguoiChoi[i] = new NguoiChoi(kn_nc[i]);
+			dsNguoiChoi[i] = new NguoiChoi(kn_nc[i],thoi_gian_du_an[i][0], thoi_gian_du_an[i][1]);
 		}
 		for (int i = 0; i < nNguoiChoi; i++) {
 			System.out.println("");
@@ -50,33 +52,46 @@ public class ProblemXDNL extends AbstractProblem {
 		for(int i=0;i<nNguonLuc;i++) {
 			constraint[i] = 0;
 		}
-		for (int i = 0; i < nNguonLuc; i++) {
-			int x = EncodingUtils.getInt(solution.getVariable(i));			
-			objective[x] += dsNguonLuc[i].getValue();
-			cnt[x] ++;
-			if (accept[x][i] == false) {
-				constraint[i] ++;
+		for (int i = 0; i < nNguonLuc; i++) {		
+			int dem  =0;
+			boolean[] values = EncodingUtils.getBinary(solution.getVariable(i));			
+			for(int j=0;j<nNguoiChoi;j++) {
+				if(values[j]==false) continue;
+				dem ++;
+				objective[j] += dsNguonLuc[i].getValue();
+				cnt[j] ++;
+				if (accept[j][i] == false) {
+					constraint[i] ++;
+				}
+				for(int k=0;k<j;k++) {
+					if(values[k]==true && dsNguoiChoi[j].checkNguoiChoi_NguoiChoi(dsNguoiChoi[k])) constraint[i] ++; 					
+				}
 			}
+			if(dem == 0) constraint[i] = nNguoiChoi;				
 		}
 		
+		int zeroObj = 0;
 		for(int i=0;i<nNguoiChoi;i++) {
 			solution.setObjective(i, -objective[i]);
+			if(objective[i]==0)
+				zeroObj++;
 		}
 		for(int i=0;i<nNguonLuc;i++) {
 			solution.setConstraint(i, constraint[i]);
 		}			
 		solution.setObjective(nNguoiChoi, variance(objective, nNguoiChoi));
 		solution.setObjective(nNguoiChoi+1, variance(cnt, nNguoiChoi));
+		if(zeroObj>0) {
+			 solution.setConstraint(nNguoiChoi+2, zeroObj);
+		}
 	}
 
 	@Override
 	public Solution newSolution() {
-		Solution solution = new Solution(9, 3+1+1, 9);
-
+		Solution solution = new Solution(Constants.nNguonLuc, Constants.nNguoiChoi+1+1+1, Constants.nNguonLuc);
 		for (int i = 0; i < nNguonLuc; i++) {
-			solution.setVariable(i, EncodingUtils.newInt(0, nNguoiChoi-1));			
-		}
-					
+			solution.setVariable(i, EncodingUtils.newBinary(nNguoiChoi));			
+		}					
 		return solution;
 	}
 
