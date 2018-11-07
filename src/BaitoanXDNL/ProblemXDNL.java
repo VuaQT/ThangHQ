@@ -13,7 +13,7 @@ public class ProblemXDNL extends AbstractProblem {
 	boolean[][] accept = new boolean[nNguoiChoi][nNguonLuc];
 
 	public ProblemXDNL() {
-		super(Constants.nNguonLuc, Constants.nNguoiChoi+1+1+1, Constants.nNguonLuc);  
+		super(Constants.nNguonLuc, Constants.nNguoiChoi+1+1, Constants.nNguonLuc+1);  
 		float tt[][] = { { 4, 17 }, { 6, 19 }, { 2, 7 }, { 2, 7.5f }, { 3, 8.5f }, { 4, 9.5f }, { 5, 10 }, { 6, 11 },
 				{ 7, 22 } };
 		String kn[][] = { { "PHP", "JavaScript", "Python" }, { "MySQL", "C++", "C#" }, { "Python", "Java", "C++" },
@@ -82,13 +82,13 @@ public class ProblemXDNL extends AbstractProblem {
 		solution.setObjective(nNguoiChoi, variance(objective, nNguoiChoi));
 		solution.setObjective(nNguoiChoi+1, variance(cnt, nNguoiChoi));
 		if(zeroObj>0) {
-			 solution.setConstraint(nNguoiChoi+2, zeroObj);
+			 solution.setConstraint(nNguoiChoi, zeroObj);
 		}
 	}
 
 	@Override
 	public Solution newSolution() {
-		Solution solution = new Solution(Constants.nNguonLuc, Constants.nNguoiChoi+1+1+1, Constants.nNguonLuc);
+		Solution solution = new Solution(Constants.nNguonLuc, Constants.nNguoiChoi+1+1, Constants.nNguonLuc+1);
 		for (int i = 0; i < nNguonLuc; i++) {
 			solution.setVariable(i, EncodingUtils.newBinary(nNguoiChoi));			
 		}					

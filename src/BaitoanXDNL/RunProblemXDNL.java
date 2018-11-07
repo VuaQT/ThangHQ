@@ -15,7 +15,7 @@ public class RunProblemXDNL {
 	public static void main(String[] args) {
 		NondominatedPopulation result = new Executor().withAlgorithm("NSGAII").withProblemClass(ProblemXDNL.class)
 				.withMaxEvaluations(10000).run();
-		Solution optSolution = new Solution(Constants.nNguonLuc, Constants.nNguoiChoi+1+1+1, Constants.nNguonLuc);
+		Solution optSolution = new Solution(Constants.nNguonLuc, Constants.nNguoiChoi+1+1, Constants.nNguonLuc+1);
 		boolean mark  = true;
 		for (Solution solution : result) {
 			if (!solution.violatesConstraints()) {
