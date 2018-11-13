@@ -146,8 +146,8 @@ public class ProblemXDNL extends AbstractProblem {
 				}
 			}
 			int dem = 0;
-			for (boolean b : cant_add) {
-				if (b == false)
+			for (int i=0;i<Constants.nNguonLuc;i++) {				
+				if (cant_add[i] == false && accept[nc][i])
 					dem++;
 			}
 //			ans = Math.max(ans,dem);
