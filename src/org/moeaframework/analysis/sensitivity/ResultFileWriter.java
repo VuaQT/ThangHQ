@@ -338,7 +338,7 @@ public class ResultFileWriter implements OutputWriter {
 	 * a valid encoding, the string {@code "-"} will be returned and a warning
 	 * message printed.
 	 * 
-	 * @param variable the decision variable to encode
+	 * @param variable the decision variable to mapStrToInt
 	 * @return the string representation of the decision variable
 	 */
 	public String encode(Variable variable) {
@@ -396,7 +396,7 @@ public class ResultFileWriter implements OutputWriter {
 			oos = new ObjectOutputStream(baos);
 			oos.writeObject(variable);
 			
-			//encode without calling Base64#encodeBase64String as versions 
+			//mapStrToInt without calling Base64#encodeBase64String as versions
 			//prior to 1.5 chunked the output
 			byte[] encoding = Base64.encodeBase64(baos.toByteArray(), false);
 			return StringUtils.newStringUtf8(encoding);
