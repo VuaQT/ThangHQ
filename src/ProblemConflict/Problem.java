@@ -38,9 +38,9 @@ public class Problem extends AbstractProblem {
 	        		}        			
         		}
         		ind++;
-        		System.out.println(s);
+        		//System.out.println(s);
         	}   
-        	System.out.println();
+        	//System.out.println();
         }        
         System.out.println("sum " +ind);
         ind = 0;
@@ -271,45 +271,62 @@ public class Problem extends AbstractProblem {
         employee = new Employee(9.5f,2);
         employee.addSkill("PHP");
         employee.addSkill("C#");
+        employee.addSkill("CSS");
+        employee.addSkill("LEADER");
         this.employees.add(employee);
 
         employee = new Employee(9.5f,3);
         employee.addSkill("PHP");
         employee.addSkill("JAVA");
         employee.addSkill("C#");
+        employee.addSkill("CSS");
+        employee.addSkill("LEADER");
         this.employees.add(employee);
 
         employee = new Employee(9.5f,3);
         employee.addSkill("PHP");
         employee.addSkill("JAVA");
+        employee.addSkill("TEST AUTOMATION");
         this.employees.add(employee);
 
         employee = new Employee(9,3);
+        employee.addSkill("LEADER");
         employee.addSkill("PHP");
+        employee.addSkill("TEST AUTOMATION");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(9,3);
+        employee.addSkill("LEADER");
         employee.addSkill("PHP");
         employee.addSkill("JAVA");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(9,4);
         employee.addSkill("PHP");
         employee.addSkill("JAVA");
+        employee.addSkill("TEST AUTOMATION");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(9,4);
         employee.addSkill("PHP");
         employee.addSkill("JAVA");
         employee.addSkill("ANDROID");
+        employee.addSkill("TEST AUTOMATION");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(8.5f,3);
         employee.addSkill("TEST");
+        employee.addSkill("TEST AUTOMATION");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(7.5f,3);
         employee.addSkill("TEST");
+        employee.addSkill("CSS");
         this.employees.add(employee);
 
         employee = new Employee(5,7);

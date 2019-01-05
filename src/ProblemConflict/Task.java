@@ -12,10 +12,10 @@ public class Task {
         employeeNeeded = 0;
     }
     public void addSkillNeeded(int number, String skillName){
-        for(int i=0;i<number;i++){
+//        for(int i=0;i<number;i++){
             skillsNeeded.add(Config.enCodeStr(skillName));
-        }
-        employeeNeeded += number;
+//        }
+        employeeNeeded += 1;
     }
     public boolean acceptEmployee(Employee e, int ind) {
     	for(Integer skillEmployee : e.skills) {    		    

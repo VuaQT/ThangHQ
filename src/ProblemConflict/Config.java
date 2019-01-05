@@ -2,8 +2,8 @@ package ProblemConflict;
 import java.util.HashMap;
 public class Config {
 	public static float A = 1;
-	public static float B = 1;	
-	public static int nVariable = 68;
+	public static float B = 0.1f;	
+	public static int nVariable = 46;
 	public static int nObjective = 2;
 	public static int nConstraint = 1;
 	public static int nEmployee = 13+14;
